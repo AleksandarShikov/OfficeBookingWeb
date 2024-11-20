@@ -1,0 +1,57 @@
+CREATE TABLE Employees (
+EmployeeId INT NOT NULL IDENTITY PRIMARY KEY,
+FullName VARCHAR(100) NOT NULL UNIQUE,
+DepartmentId INT FOREIGN KEY REFERENCES Departments(DepartmentId)
+);
+
+CREATE TABLE Departments (
+DepartmentId INT NOT NULL IDENTITY PRIMARY KEY,
+DepartmentName VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE Cars (
+CarId INT NOT NULL IDENTITY PRIMARY KEY,
+EmployeeId INT NULL FOREIGN KEY REFERENCES Employees(EmployeeId),
+CarBrand VARCHAR(50) NOT NULL,
+RegisterNumber VARCHAR(20) NOT NULL UNIQUE
+);
+
+CREATE TABLE OfficeRooms (
+RoomId INT NOT NULL IDENTITY PRIMARY KEY,
+RoomNumber VARCHAR(10) UNIQUE,
+RoomCapacity INT NOT NULL
+);
+
+CREATE TABLE ParkingSpots (
+ParkingSpotId INT NOT NULL IDENTITY PRIMARY KEY,
+SpotNumber INT CHECK (SpotNumber BETWEEN 1 AND 4) UNIQUE,
+IsReserved BIT NOT NULL
+);
+
+CREATE TABLE ParkingReservations(
+ReservationId INT NOT NULL IDENTITY PRIMARY KEY,
+EmployeeId INT NOT NULL FOREIGN KEY REFERENCES Employees(EmployeeId),
+ParkingSpotId INT NOT NULL FOREIGN KEY REFERENCES ParkingSpots(ParkingSpotId),
+ArrivalTime DATE NOT NULL,
+DepartureTime DATE NOT NULL
+);
+
+CREATE TABLE OfficePresence(
+PresenceId INT NOT NULL IDENTITY PRIMARY KEY,
+PresenceDate DATE NOT NULL,
+EmployeeId INT NOT NULL FOREIGN KEY REFERENCES Employees(EmployeeId),
+ReservationId INT NULL FOREIGN KEY REFERENCES ParkingReservations(ReservationId),
+RoomId INT NOT NULL FOREIGN KEY REFERENCES OfficeRooms(RoomId),
+Notes VARCHAR NULL
+);
+
+INSERT INTO OfficeRooms (RoomNumber,RoomCapacity) 
+VALUES (403 , 8), (404,8)
+
+INSERT INTO Departments (DepartmentName) VALUES
+('BA'),('HR'),('Sys Admin'),('DevOps'),('Java'),('.NET'),('AM'),('FO')
+
+SET IDENTITY_INSERT ParkingSpots ON
+INSERT INTO ParkingSpots (ParkingSpotId,SpotNumber,IsReserved) VALUES 
+(1,1,0),(2,2,0),(3,3,0),(4,4,0)
+SET IDENTITY_INSERT ParkingSpots OFF

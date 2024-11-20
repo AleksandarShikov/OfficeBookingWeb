@@ -19,6 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficeBookingWeb.Domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficeBookingWeb.Application", "OfficeBookingWeb.Application\OfficeBookingWeb.Application.csproj", "{65EC32EB-D1CC-4F99-88BB-AF8C5FCF5548}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{BEF64D2E-34AC-4BA6-9A37-D465D6299DED}"
+	ProjectSection(SolutionItems) = preProject
+		sql_create_database.query = sql_create_database.query
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
