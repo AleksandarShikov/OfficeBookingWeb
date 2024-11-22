@@ -10,7 +10,7 @@ public class GetOfficePresenceListQueryHandler : IRequestHandler<GetOfficePresen
     private readonly IAsyncRepository<OfficePresence> _officePresenceRepository;
     private readonly IMapper _mapper;
 
-    public GetOfficePresenceListQueryHandler(Mapper mapper, IAsyncRepository<OfficePresence> officePresenceRepository)
+    public GetOfficePresenceListQueryHandler(IMapper mapper, IAsyncRepository<OfficePresence> officePresenceRepository)
     {
         _mapper = mapper;
         _officePresenceRepository = officePresenceRepository;

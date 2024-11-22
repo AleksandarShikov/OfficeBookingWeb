@@ -20,7 +20,7 @@ namespace OfficeBookingWeb.Persistence
                 options.UseSqlServer(configuration.GetConnectionString("TestDb")));
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
-
+            services.AddScoped<IOfficePresenceRepository, OfficePresenceRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             return services;

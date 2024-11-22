@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace OfficeBookingWeb.Application.Features.Employees.Command
 {
     public class CreateEmployeeCommand : IRequest<int>
     {
+ 
         public int EmployeeId { get; set; }
 
         public string FullName { get; set; }

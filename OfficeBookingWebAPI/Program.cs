@@ -1,6 +1,10 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using OfficeBookingWebAPI;
 
-app.MapGet("/", () => "Hello World!");
+var builder = WebApplication.CreateBuilder(args);
+var app = builder
+    .ConfigureServices()
+    .ConfigureApp();
+
+
 
 app.Run();
