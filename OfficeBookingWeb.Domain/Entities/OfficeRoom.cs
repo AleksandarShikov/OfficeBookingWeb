@@ -2,12 +2,14 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using OfficeBookingWeb.Domain.Common;
 
 namespace OfficeBookingWeb.Domain.Entities;
 
 public partial class OfficeRoom : AuditableEntity
 {
+    [Key]
     public int RoomId { get; set; }
 
     public string RoomNumber { get; set; } = null!;

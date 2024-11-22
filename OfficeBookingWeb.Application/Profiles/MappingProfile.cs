@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using OfficeBookingWeb.Application.Features.Employees.Queries;
 using OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateOfficePresence;
 using OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOfficePresence;
 using OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateOfficePresence;
 using OfficeBookingWeb.Domain.Entities;
+using OfficeBookingWeb.Application.Features.Employees.DTOs;
 
 namespace OfficeBookingWeb.Application.Profiles
 {
@@ -22,6 +22,9 @@ namespace OfficeBookingWeb.Application.Profiles
             CreateMap<Employee, EmployeeListVm>().ReverseMap();
             CreateMap<Employee, CreateOfficePresenceCommand>().ReverseMap();
 
+            CreateMap<Employee, EmployeeCarsListVm>().ReverseMap();
+
+            CreateMap<Car, CarDTO>().ReverseMap();
 
         }
     }

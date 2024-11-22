@@ -2,12 +2,14 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using OfficeBookingWeb.Domain.Common;
 
 namespace OfficeBookingWeb.Domain.Entities;
 
 public partial class ParkingSpot : AuditableEntity
 {
+    [Key]
     public int ParkingSpotId { get; set; }
 
     public int SpotNumber { get; set; }

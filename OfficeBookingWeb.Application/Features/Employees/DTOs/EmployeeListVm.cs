@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OfficeBookingWeb.Application.Features.Employees.Queries
+namespace OfficeBookingWeb.Application.Features.Employees.DTOs
 {
     public class EmployeeListVm
     {
@@ -15,7 +15,7 @@ namespace OfficeBookingWeb.Application.Features.Employees.Queries
 
         public int DepartmentId { get; set; }
 
-        public virtual ICollection<Car> Cars { get; set; } = new List<Car>();
+        public virtual ICollection<Car> Cars { get; set; }
 
         public virtual Department Department { get; set; }
 

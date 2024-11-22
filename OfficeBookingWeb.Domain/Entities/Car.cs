@@ -2,12 +2,14 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using OfficeBookingWeb.Domain.Common;
 
 namespace OfficeBookingWeb.Domain.Entities;
 
 public partial class Car : AuditableEntity
 {
+    [Key]
     public int CarId { get; set; }
 
     public int EmployeeId { get; set; }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using OfficeBookingWeb.Application.Contracts.Persistence;
+using OfficeBookingWeb.Application.Features.Employees.DTOs;
 using OfficeBookingWeb.Domain.Entities;
 
-namespace OfficeBookingWeb.Application.Features.Employees.Queries
+namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployees
 {
     public class GetEmployeeQueryHandler : IRequestHandler<GetEmployeeListQuery, List<EmployeeListVm>>
     {
@@ -17,8 +18,8 @@ namespace OfficeBookingWeb.Application.Features.Employees.Queries
 
         public GetEmployeeQueryHandler(IMapper mapper, IAsyncRepository<Employee> employeeRepository)
         {
-            this._mapper = mapper;
-            this._employeeRepository = employeeRepository;
+            _mapper = mapper;
+            _employeeRepository = employeeRepository;
         }
 
         public async Task<List<EmployeeListVm>> Handle(GetEmployeeListQuery request, CancellationToken cancellationToken)

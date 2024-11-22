@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using OfficeBookingWeb.Application;
 using OfficeBookingWeb.Application.Contracts.Persistence;
@@ -15,9 +16,7 @@ namespace OfficeBookingWebAPI
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Configuration.GetConnectionString("TestDB");
 
-
             builder.Services.AddControllers();
-
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Office Booking API", Version = "v1" });
