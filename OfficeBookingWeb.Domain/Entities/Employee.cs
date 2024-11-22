@@ -9,7 +9,6 @@ namespace OfficeBookingWeb.Domain.Entities;
 
 public partial class Employee : AuditableEntity
 {
-    [Key]
     public int EmployeeId { get; set; }
 
     public string FullName { get; set; } = null!;

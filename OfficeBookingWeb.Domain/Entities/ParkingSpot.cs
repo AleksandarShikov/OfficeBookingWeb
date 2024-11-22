@@ -9,7 +9,6 @@ namespace OfficeBookingWeb.Domain.Entities;
 
 public partial class ParkingSpot : AuditableEntity
 {
-    [Key]
     public int ParkingSpotId { get; set; }
 
     public int SpotNumber { get; set; }

@@ -12,5 +12,7 @@ namespace OfficeBookingWeb.Domain.Common
         public DateTime CreatedDate { get; set; }
         public string? LastModifiedBy { get; set; }
         public DateTime LastModifiedDate { get; set; }
+        public bool IsDeleted { get; set; } = false; 
+        public DateTime? DeletedDate { get; set; }
     }
 }

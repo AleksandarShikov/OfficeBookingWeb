@@ -9,7 +9,6 @@ namespace OfficeBookingWeb.Domain.Entities;
 
 public partial class Car : AuditableEntity
 {
-    [Key]
     public int CarId { get; set; }
 
     public int EmployeeId { get; set; }

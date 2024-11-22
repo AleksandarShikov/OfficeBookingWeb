@@ -9,7 +9,6 @@ namespace OfficeBookingWeb.Domain.Entities;
 
 public partial class OfficeRoom : AuditableEntity
 {
-    [Key]
     public int RoomId { get; set; }
 
     public string RoomNumber { get; set; } = null!;
