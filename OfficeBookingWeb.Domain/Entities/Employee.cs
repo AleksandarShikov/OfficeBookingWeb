@@ -12,7 +12,7 @@ public partial class Employee : AuditableEntity
 
     public string FullName { get; set; }
 
-    public int? DepartmentId { get; set; }
+    public int DepartmentId { get; set; }
 
     public virtual ICollection<Car> Cars { get; set; } = new List<Car>();
 

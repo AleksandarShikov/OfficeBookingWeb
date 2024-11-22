@@ -16,9 +16,9 @@ public class OfficePresenceListVm
 
     public string? Notes { get; set; }
 
-    public virtual Employee? Employee { get; set; }
+    public virtual Employee Employee { get; set; }
 
     public virtual ParkingReservation? Reservation { get; set; }
 
-    public virtual OfficeRoom? Room { get; set; }
+    public virtual OfficeRoom Room { get; set; }
 }

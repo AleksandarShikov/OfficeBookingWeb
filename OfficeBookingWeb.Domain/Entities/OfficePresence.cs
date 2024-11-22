@@ -18,7 +18,7 @@ public class OfficePresence : AuditableEntity
 
     public int RoomId { get; set; }
 
-    public string Notes { get; set; }
+    public string? Notes { get; set; }
 
     public virtual Employee Employee { get; set; }
 

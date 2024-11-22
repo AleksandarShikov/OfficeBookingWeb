@@ -8,17 +8,17 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateO
     public class CreateOfficePresenceCommandHandler : IRequestHandler<CreateOfficePresenceCommand,int>
     {
         private readonly IMapper _mapper;
-        private readonly IOfficePresenceRepository _officePresenceRepository;
+        private readonly IOfficePresenceRepository _officePresenceRepositoryRepository;
 
-        public CreateOfficePresenceCommandHandler(IMapper mapper, IOfficePresenceRepository officePresence)
+        public CreateOfficePresenceCommandHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository)
         {
             this._mapper = mapper;
-            _officePresenceRepository = officePresence;
+            _officePresenceRepositoryRepository = officePresenceRepository;
         }
         public async Task<int> Handle(CreateOfficePresenceCommand request, CancellationToken cancellationToken)
         {
             var officePresence = _mapper.Map<OfficePresence>(request);
-            var createdOfficePresence = await _officePresenceRepository.AddAsync(officePresence);
+            var createdOfficePresence = await _officePresenceRepositoryRepository.AddAsync(officePresence);
 
             return createdOfficePresence.PresenceId;
         }

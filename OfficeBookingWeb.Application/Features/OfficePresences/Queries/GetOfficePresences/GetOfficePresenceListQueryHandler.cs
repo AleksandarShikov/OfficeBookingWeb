@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
 using MediatR;
 using OfficeBookingWeb.Application.Contracts.Persistence;
+using OfficeBookingWeb.Domain.Entities;
 
 namespace OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOfficePresence;
 
 public class GetOfficePresenceListQueryHandler : IRequestHandler<GetOfficePresenceListQuery, List<OfficePresenceListVm>>
 {
-    private readonly IAsyncRepository<Domain.Entities.OfficePresence> _officePresenceRepository;
+    private readonly IAsyncRepository<OfficePresence> _officePresenceRepository;
     private readonly IMapper _mapper;
 
-    public GetOfficePresenceListQueryHandler(Mapper mapper, IAsyncRepository<Domain.Entities.OfficePresence> officePresenceRepository)
+    public GetOfficePresenceListQueryHandler(Mapper mapper, IAsyncRepository<OfficePresence> officePresenceRepository)
     {
         _mapper = mapper;
         _officePresenceRepository = officePresenceRepository;

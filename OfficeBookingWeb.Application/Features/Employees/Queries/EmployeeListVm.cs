@@ -1,14 +1,13 @@
-﻿using System;
+﻿using OfficeBookingWeb.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MediatR;
-using OfficeBookingWeb.Domain.Entities;
 
-namespace OfficeBookingWeb.Application.Features.Employees.Command
+namespace OfficeBookingWeb.Application.Features.Employees.Queries
 {
-    public class CreateEmployeeCommand : IRequest<int>
+    public class EmployeeListVm
     {
         public int EmployeeId { get; set; }
 

@@ -10,7 +10,7 @@ public partial class Car : AuditableEntity
 {
     public int CarId { get; set; }
 
-    public int? EmployeeId { get; set; }
+    public int EmployeeId { get; set; }
 
     public string CarBrand { get; set; }
 
