@@ -16,6 +16,15 @@ namespace OfficeBookingWebAPI
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Configuration.GetConnectionString("TestDB");
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
+
+
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen(c =>
             {
@@ -36,6 +45,8 @@ namespace OfficeBookingWebAPI
                     c.RoutePrefix = string.Empty;
                 });
             }
+
+
             app.UseCors("open");
             app.UseHttpsRedirection();
             app.UseRouting();

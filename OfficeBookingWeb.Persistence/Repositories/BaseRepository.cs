@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OfficeBookingWeb.Application.Contracts.Persistence;
+using OfficeBookingWeb.Domain.Common;
 
 namespace OfficeBookingWeb.Persistence.Repositories
 {
@@ -43,6 +44,19 @@ namespace OfficeBookingWeb.Persistence.Repositories
         public async Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteAsync(T entity)
+        {
+            if (entity is AuditableEntity auditableEntity)
+            {
+                auditableEntity.IsDeleted = true;
+                auditableEntity.DeletedDate = DateTime.UtcNow;
+
+                _dbContext.Set<T>().Update(entity);
+            }
+
             await _dbContext.SaveChangesAsync();
         }
     }

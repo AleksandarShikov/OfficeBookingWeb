@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OfficeBookingWeb.Application.Features.Employees.DTOs
+namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployees
 {
     public class EmployeeListVm
     {

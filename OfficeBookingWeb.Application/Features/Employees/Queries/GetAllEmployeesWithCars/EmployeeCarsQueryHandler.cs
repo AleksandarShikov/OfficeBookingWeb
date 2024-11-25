@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using OfficeBookingWeb.Application.Contracts.Persistence;
-using OfficeBookingWeb.Application.Features.Employees.DTOs;
 using OfficeBookingWeb.Domain.Entities;
 
 namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployeesWithCars

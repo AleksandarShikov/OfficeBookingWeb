@@ -1,18 +1,18 @@
-﻿using OfficeBookingWeb.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
 
-namespace OfficeBookingWeb.Application.Features.Employees.DTOs
+namespace OfficeBookingWeb.Application.Features.Employees.Command
 {
-    public class EmployeeCarsListVm
+    public class UpdateEmployeeCommand : IRequest<bool>
     {
         public int EmployeeId { get; set; }
 
         public string FullName { get; set; }
 
-        public List<CarDTO> Cars { get; set; }
+        public int DepartmentId { get; set; }
     }
 }

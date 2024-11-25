@@ -97,6 +97,7 @@ namespace OfficeBookingWeb.Persistence
                 entity.Property(e => e.LastModifiedDate)
                     .HasDefaultValueSql("(getdate())")
                     .HasColumnType("datetime");
+                entity.HasQueryFilter(e => !e.IsDeleted);
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -127,6 +128,7 @@ namespace OfficeBookingWeb.Persistence
                     .HasForeignKey(d => d.DepartmentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Employees__Depar__3D5E1FD2");
+                entity.HasQueryFilter(e => !e.IsDeleted);
             });
 
             modelBuilder.Entity<OfficePresence>(entity =>
@@ -166,6 +168,7 @@ namespace OfficeBookingWeb.Persistence
                     .HasForeignKey(d => d.RoomId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__OfficePre__RoomI__5AEE82B9");
+                entity.HasQueryFilter(e => !e.IsDeleted);
             });
 
             modelBuilder.Entity<OfficeRoom>(entity =>
@@ -191,6 +194,7 @@ namespace OfficeBookingWeb.Persistence
                 entity.Property(e => e.RoomNumber)
                     .HasMaxLength(10)
                     .IsUnicode(false);
+                entity.HasQueryFilter(e => !e.IsDeleted);
             });
 
             modelBuilder.Entity<ParkingReservation>(entity =>
@@ -221,6 +225,7 @@ namespace OfficeBookingWeb.Persistence
                     .HasForeignKey(d => d.ParkingSpotId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__ParkingRe__Parki__5629CD9C");
+                entity.HasQueryFilter(e => !e.IsDeleted);
             });
 
             modelBuilder.Entity<ParkingSpot>(entity =>
@@ -243,7 +248,11 @@ namespace OfficeBookingWeb.Persistence
                 entity.Property(e => e.LastModifiedDate)
                     .HasDefaultValueSql("(getdate())")
                     .HasColumnType("datetime");
+                entity.HasQueryFilter(e => !e.IsDeleted);
+
             });
+
+           
 
             OnModelCreatingPartial(modelBuilder);
         }

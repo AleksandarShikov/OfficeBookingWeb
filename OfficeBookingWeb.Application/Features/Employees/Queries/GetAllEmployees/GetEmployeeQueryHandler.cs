@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using OfficeBookingWeb.Application.Contracts.Persistence;
-using OfficeBookingWeb.Application.Features.Employees.DTOs;
 using OfficeBookingWeb.Domain.Entities;
 
 namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployees
@@ -24,7 +23,7 @@ namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployee
 
         public async Task<List<EmployeeListVm>> Handle(GetEmployeeListQuery request, CancellationToken cancellationToken)
         {
-            var allEmployees = (await _employeeRepository.ListAllAsync()).OrderBy(e => e);
+            var allEmployees = (await _employeeRepository.ListAllAsync()).OrderBy(e => e.EmployeeId);
 
             return _mapper.Map<List<EmployeeListVm>>(allEmployees);
         }
