@@ -23,7 +23,7 @@ namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployee
 
         public async Task<List<EmployeeCarsListVm>> Handle(EmployeeCarsListQuery request, CancellationToken cancellationToken)
         {
-            var employeeCars = (await _employeeRepository.GetEmployeesWithCars()).OrderBy(e => e);
+            var employeeCars = (await _employeeRepository.GetEmployeesWithCars()).OrderBy(e => e.EmployeeId).ToList();
             return _mapper.Map<List<EmployeeCarsListVm>>(employeeCars);
         }
     }

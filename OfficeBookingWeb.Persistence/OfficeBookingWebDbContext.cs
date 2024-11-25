@@ -22,6 +22,7 @@ namespace OfficeBookingWeb.Persistence
         public DbSet<Department> Departments { get; set; }
         public DbSet<OfficeRoom> OfficeRooms { get; set; }
         public DbSet<ParkingSpot> ParkingSpots { get; set; }
+        public DbSet<ParkingReservation> ParkingReservations { get; set; }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entity in ChangeTracker.Entries<AuditableEntity>())

@@ -19,7 +19,7 @@ namespace OfficeBookingWebAPI.Controllers
             this._mediator = mediator;
         }
 
-        [HttpGet("getallemployees",Name = "GetAllEmployees")]
+        [HttpGet("all",Name = "GetAllEmployees")]
         public async Task<ActionResult<List<EmployeeListVm>>> GetAllEmployees()
         {
             var dtos = await _mediator.Send(new GetEmployeeListQuery());
@@ -41,7 +41,6 @@ namespace OfficeBookingWebAPI.Controllers
                 return BadRequest("Employee data is required.");
             }
 
-
             try
             {
                 var response = await _mediator.Send(createEmployeeCommand);
@@ -53,7 +52,7 @@ namespace OfficeBookingWebAPI.Controllers
             }
         }
 
-        [HttpDelete("softdeleteemployee/{employeeId}", Name = "SoftDeleteEmployee")]
+        [HttpDelete("deleteemployee/{employeeId}", Name = "SoftDeleteEmployee")]
         public async Task<ActionResult<int>> DeleteEmployee(int employeeId)
         {
             if (employeeId <= 0)

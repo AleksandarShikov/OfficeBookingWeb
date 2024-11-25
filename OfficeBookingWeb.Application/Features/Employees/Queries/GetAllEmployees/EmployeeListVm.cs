@@ -15,12 +15,5 @@ namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployee
 
         public int DepartmentId { get; set; }
 
-        public virtual ICollection<Car> Cars { get; set; }
-
-        public virtual Department Department { get; set; }
-
-        public virtual ICollection<OfficePresence> OfficePresences { get; set; } = new List<OfficePresence>();
-
-        public virtual ICollection<ParkingReservation> ParkingReservations { get; set; } = new List<ParkingReservation>();
     }
 }

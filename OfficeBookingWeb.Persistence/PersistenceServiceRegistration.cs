@@ -22,6 +22,7 @@ namespace OfficeBookingWeb.Persistence
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IOfficePresenceRepository, OfficePresenceRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<ICarRepository, CarRepository>();
 
             return services;
         }

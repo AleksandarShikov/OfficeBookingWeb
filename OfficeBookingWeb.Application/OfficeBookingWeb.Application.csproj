@@ -20,4 +20,8 @@
     <ProjectReference Include="..\OfficeBookingWeb.Domain\OfficeBookingWeb.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Cars\Queries\" />
+  </ItemGroup>
+
 </Project>
