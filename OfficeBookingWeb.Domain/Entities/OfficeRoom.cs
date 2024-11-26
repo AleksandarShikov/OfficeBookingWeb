@@ -11,7 +11,7 @@ public partial class OfficeRoom : AuditableEntity
 {
     public int RoomId { get; set; }
 
-    public string RoomNumber { get; set; } = null!;
+    public string RoomNumber { get; set; } 
 
     public int RoomCapacity { get; set; }
 

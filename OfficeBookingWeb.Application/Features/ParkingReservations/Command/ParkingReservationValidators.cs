@@ -13,29 +13,33 @@ namespace OfficeBookingWeb.Application.Features.ParkingReservations.Command
     public class ParkingReservationValidators
     {
         private readonly IParkingReservationRepository _parkingReservationRepository;
-        private readonly IParkingSpotRepository _parkingSpotRepository;
+
+        public ParkingReservationValidators(IParkingReservationRepository parkingReservationRepository)
+        {
+            _parkingReservationRepository = parkingReservationRepository;
+        }
+        public async Task<bool> HasConflictingReservationAsync(int parkingSpotId, DateTime? arrivalTime, DateTime? departureTime)
+        {
+            if (!arrivalTime.HasValue || !departureTime.HasValue)
+                throw new ArgumentException("Arrival and Departure times cannot be null");
+            if (arrivalTime >= departureTime)
+                throw new ArgumentException("Arrival time should be earlier than departure time");
+
+            var conflictingReservations = await _parkingReservationRepository.GetConflictingReservationsAsync(parkingSpotId, arrivalTime, departureTime);
+
+            return conflictingReservations.Any();
+        }
         public async Task CleanUpExpiredReservationsAsync()
         {
-
             var now = DateTime.Now;
+
 
             var expiredReservations = await _parkingReservationRepository.GetExpiredReservationsAsync(now);
 
             foreach (var reservation in expiredReservations)
             {
-                var parkingSpot = await _parkingSpotRepository.GetByIdAsync(reservation.ParkingSpotId);
-                if (parkingSpot != null)
-                {
-                    parkingSpot.IsReserved = false;
-                    await _parkingSpotRepository.UpdateAsync(parkingSpot);
-                }
-                await _parkingReservationRepository.DeleteAsync(reservation);
+                await _parkingReservationRepository.SoftDeleteAsync(reservation);
             }
-        }
-        public async Task<bool> HasConflictingReservationAsync(int parkingSpotId, DateTime arrivalTime, DateTime departureTime)
-        {
-            var conflictingReservations = await _parkingReservationRepository.GetConflictingReservationsAsync(parkingSpotId, arrivalTime, departureTime);
-            return conflictingReservations.Any();
         }
 
     }

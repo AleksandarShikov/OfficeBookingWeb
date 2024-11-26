@@ -14,21 +14,15 @@ namespace OfficeBookingWeb.Application.Features.ParkingReservations.Command
     public class CreateParkingReservationCommandHandler : IRequestHandler<CreateParkingReservationCommand, bool>
     {
         private readonly IParkingReservationRepository _parkingReservationRepository;
-        private readonly IParkingSpotRepository _parkingSpotRepository;
-        private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
         private readonly ParkingReservationValidators _parkingReservationValidators;
 
         public CreateParkingReservationCommandHandler(
             IParkingReservationRepository parkingReservationRepository,
-            IParkingSpotRepository parkingSpotRepository,
-            IEmployeeRepository employeeRepository,
             IMapper mapper,
             ParkingReservationValidators parkingReservationValidators)
         {
             _parkingReservationRepository = parkingReservationRepository;
-            _parkingSpotRepository = parkingSpotRepository;
-            _employeeRepository = employeeRepository;
             _mapper = mapper;
             _parkingReservationValidators = parkingReservationValidators;
         }
@@ -37,40 +31,19 @@ namespace OfficeBookingWeb.Application.Features.ParkingReservations.Command
         {
             await _parkingReservationValidators.CleanUpExpiredReservationsAsync();
 
-            var employee = await _employeeRepository.GetByIdAsync(request.EmployeeId);
-            if (employee == null)
-            {
-                throw new Exception("Employee not found.");
-            }
+            var hasConflict =  await _parkingReservationValidators.HasConflictingReservationAsync(request.ParkingSpotId,
+                request.ArrivalTime, request.DepartureTime);
 
-            var parkingSpot = await _parkingSpotRepository.GetByIdAsync(request.ParkingSpotId);
-            if (parkingSpot == null)
+            if (hasConflict)
             {
-                throw new Exception("Parking spot not found.");
-            }
-
-            if (parkingSpot.IsReserved)
-            {
-                throw new Exception("Parking spot is already reserved.");
-            }
-
-            var conflictingReservations = await _parkingReservationValidators.HasConflictingReservationAsync(request.ParkingSpotId, request.ArrivalTime, request.DepartureTime);
-            if (conflictingReservations)
-            {
-                throw new Exception("Parking spot is already reserved for the selected time range.");
+                throw new Exception("The parking spot is already reserved for the selected time range.");
             }
 
             var parkingReservation = _mapper.Map<ParkingReservation>(request);
-
-            parkingSpot.IsReserved = true;
-            await _parkingSpotRepository.UpdateAsync(parkingSpot);
-
             await _parkingReservationRepository.AddAsync(parkingReservation);
 
             return true;
         }
     }
 }
-        }
-    }
-}
+       

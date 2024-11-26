@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OfficeBookingWeb.Application.Contracts.Persistence;
+using OfficeBookingWeb.Application.Features.ParkingReservations.Command;
 using OfficeBookingWeb.Persistence.Repositories;
 
 namespace OfficeBookingWeb.Persistence
@@ -23,6 +24,10 @@ namespace OfficeBookingWeb.Persistence
             services.AddScoped<IOfficePresenceRepository, OfficePresenceRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<IParkingReservationRepository, ParkingReservationRepository>();
+            services.AddScoped<IParkingSpotRepository, ParkingSpotRepository>();
+            services.AddScoped<IOfficeRoomRepository, OfficeRoomRepository>();
+            services.AddTransient<ParkingReservationValidators>();
 
             return services;
         }

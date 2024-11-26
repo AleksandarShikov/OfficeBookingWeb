@@ -23,7 +23,7 @@ public partial class OfficePresence : AuditableEntity
 
     public virtual Employee Employee { get; set; } = null!;
 
-    public virtual ParkingReservation? Reservation { get; set; }
+    public virtual ParkingReservation? ParkingReservation { get; set; }
 
     public virtual OfficeRoom Room { get; set; } = null!;
 }

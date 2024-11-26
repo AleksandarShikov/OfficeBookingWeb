@@ -19,86 +19,43 @@ namespace OfficeBookingWebAPI.Controllers
             this._mediator = mediator;
         }
 
-        [HttpGet("all",Name = "GetAllEmployees")]
+        [HttpGet("GetAllEmployees", Name = "GetAllEmployees")]
         public async Task<ActionResult<List<EmployeeListVm>>> GetAllEmployees()
         {
-            var dtos = await _mediator.Send(new GetEmployeeListQuery());
-            return Ok(dtos);
+            var response = await _mediator.Send(new GetEmployeeListQuery());
+            return Ok(response);
         }
 
         [HttpGet("allwithcars", Name = "GetAllEmployeesWithCars")]
         public async Task<ActionResult<List<EmployeeListVm>>> GetAllEmployeesWithCars()
         {
-            var dtos = await _mediator.Send(new EmployeeCarsListQuery());
-            return Ok(dtos);
+            var response = await _mediator.Send(new EmployeeCarsListQuery());
+            return Ok(response);
         }
 
         [HttpPost("addemployee", Name = "AddEmployee")]
         public async Task<ActionResult<int>> CreateEmployee([FromBody] CreateEmployeeCommand createEmployeeCommand)
-        {
-            if (createEmployeeCommand == null)
-            {
-                return BadRequest("Employee data is required.");
-            }
-
-            try
-            {
-                var response = await _mediator.Send(createEmployeeCommand);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+        { 
+            var response = await _mediator.Send(createEmployeeCommand);
+            return Ok(response);
         }
 
         [HttpDelete("deleteemployee/{employeeId}", Name = "SoftDeleteEmployee")]
         public async Task<ActionResult<int>> DeleteEmployee(int employeeId)
         {
-            if (employeeId <= 0)
-            {
-                return BadRequest("Invalid employee ID.");
-            }
-
-            try
-            {
-                var result = await _mediator.Send(new DeleteEmployeeCommand { EmployeeId = employeeId });
-
-                if (!result)
-                {
-                    return NotFound("Employee not found.");
-                }
-                return Ok("Employee Deleted!");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var response = await _mediator.Send(new DeleteEmployeeCommand { EmployeeId = employeeId });
+            return Ok(response);
         }
 
         [HttpPut("updateemployee/{employeeId}")]
         public async Task<IActionResult> UpdateEmployee(int employeeId, [FromBody] UpdateEmployeeCommand updateEmployeeCommand)
         {
-            if (employeeId != updateEmployeeCommand.EmployeeId)
-            {
-                return BadRequest("Employee ID mismatch");
-            }
+            var response = await _mediator.Send(updateEmployeeCommand);
+            return Ok(response);
 
-            try
-            {
-                var result = await _mediator.Send(updateEmployeeCommand);
-                if (result)
-                {
-                    return Ok("Employee Updated!");
-                }
-                return NotFound("Employee not found");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
         }
-
-
     }
+
+
 }
+

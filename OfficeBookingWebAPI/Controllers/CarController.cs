@@ -19,19 +19,8 @@ namespace OfficeBookingWebAPI.Controllers
         [HttpPost("createcar")]
         public async Task<ActionResult<int>> CreateCar([FromBody] CreateCarCommand createCarCommand)
         {
-            if (createCarCommand == null)
-            {
-                return BadRequest("Employee data is required.");
-            }
-            try
-            {
-                var response = await _mediator.Send(createCarCommand);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var response = await _mediator.Send(createCarCommand);
+            return Ok(response);
         }
     }
 }

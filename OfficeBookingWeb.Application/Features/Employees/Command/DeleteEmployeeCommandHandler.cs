@@ -26,7 +26,7 @@ namespace OfficeBookingWeb.Application.Features.Employees.Command
 
             if (employee == null)
             {
-                return false;
+                throw new ArgumentException("Employee not found");
             }
 
             await _employeeRepository.SoftDeleteAsync(employee);

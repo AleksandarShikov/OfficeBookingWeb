@@ -11,7 +11,6 @@ namespace OfficeBookingWeb.Application.Features.Employees.Command
 {
     public class CreateEmployeeCommand : IRequest<int>
     {
-
         public string FullName { get; set; }
 
         public int DepartmentId { get; set; }

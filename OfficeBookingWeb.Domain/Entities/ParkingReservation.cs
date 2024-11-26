@@ -15,9 +15,9 @@ public partial class ParkingReservation : AuditableEntity
 
     public int ParkingSpotId { get; set; }
 
-    public DateTime? ArrivalTime { get; set; }
+    public DateTime ArrivalTime { get; set; }
 
-    public DateTime? DepartureTime { get; set; }
+    public DateTime DepartureTime { get; set; } 
 
     public virtual Employee Employee { get; set; } = null!;
 

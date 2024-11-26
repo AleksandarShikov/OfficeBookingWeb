@@ -13,7 +13,5 @@ public partial class ParkingSpot : AuditableEntity
 
     public int SpotNumber { get; set; }
 
-    public bool IsReserved { get; set; }
-
     public virtual ICollection<ParkingReservation> ParkingReservations { get; set; } = new List<ParkingReservation>();
 }

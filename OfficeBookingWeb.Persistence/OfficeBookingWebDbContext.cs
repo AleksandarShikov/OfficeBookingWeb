@@ -161,7 +161,7 @@ namespace OfficeBookingWeb.Persistence
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__OfficePre__Emplo__59063A47");
 
-                entity.HasOne(d => d.Reservation).WithMany(p => p.OfficePresences)
+                entity.HasOne(d => d.ParkingReservation).WithMany(p => p.OfficePresences)
                     .HasForeignKey(d => d.ReservationId)
                     .HasConstraintName("FK__OfficePre__Reser__59FA5E80");
 
@@ -215,6 +215,10 @@ namespace OfficeBookingWeb.Persistence
                     .IsUnicode(false);
                 entity.Property(e => e.LastModifiedDate)
                     .HasDefaultValueSql("(getdate())")
+                    .HasColumnType("datetime");
+                entity.Property(e => e.ArrivalTime)
+                    .HasColumnType("datetime");           
+                entity.Property(e => e.DepartureTime)
                     .HasColumnType("datetime");
 
                 entity.HasOne(d => d.Employee).WithMany(p => p.ParkingReservations)

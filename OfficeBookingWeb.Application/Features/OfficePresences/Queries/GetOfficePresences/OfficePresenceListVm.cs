@@ -4,21 +4,21 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOffic
 
 public class OfficePresenceListVm
 {
-    public int PresenceId { get; set; }
 
     public DateOnly PresenceDate { get; set; }
 
-    public int EmployeeId { get; set; }
+    public string EmployeeFullName { get; set; }
 
-    public int? ReservationId { get; set; }
+    public string EmployeeDepartment { get; set; }
 
-    public int RoomId { get; set; }
+    public int? ParkingSpot { get; set; }
 
+    public string RoomNumber { get; set; }
+
+    public DateTime? ArrivalTime {get; set; }
+    
+    public DateTime? DepartureTime {get; set; }
+    
     public string? Notes { get; set; }
 
-    public virtual Employee Employee { get; set; }
-
-    public virtual ParkingReservation? Reservation { get; set; }
-
-    public virtual OfficeRoom Room { get; set; }
 }

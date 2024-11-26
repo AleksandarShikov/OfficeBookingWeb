@@ -22,12 +22,12 @@ namespace OfficeBookingWeb.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ParkingReservation>> GetConflictingReservationsAsync(int parkingSpotId, DateTime arrivalTime, DateTime departureTime)
+        public async Task<IEnumerable<ParkingReservation>> GetConflictingReservationsAsync(int parkingSpotId, DateTime? arrivalTime, DateTime? departureTime)
         {
             return await _dbContext.ParkingReservations
-                .Where(r => r.ParkingSpotId == parkingSpotId &&
-                            ((r.ArrivalTime >= arrivalTime && r.ArrivalTime < departureTime) ||
-                             (r.DepartureTime > arrivalTime && r.DepartureTime <= departureTime)))
+                .Where(r => r.ParkingSpotId == parkingSpotId && 
+                            r.ArrivalTime < departureTime &&
+                            r.DepartureTime > arrivalTime)
                 .ToListAsync();
         }
     }

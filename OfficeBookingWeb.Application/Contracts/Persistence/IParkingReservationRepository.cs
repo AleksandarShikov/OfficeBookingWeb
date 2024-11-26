@@ -6,6 +6,6 @@ public interface IParkingReservationRepository : IAsyncRepository<ParkingReserva
 {
     Task<List<ParkingReservation>> GetExpiredReservationsAsync(DateTime currentTime);
 
-    Task<IEnumerable<ParkingReservation>> GetConflictingReservationsAsync(int parkingSpotId, DateTime arrivalTime,
-        DateTime departureTime);
+    Task<IEnumerable<ParkingReservation>> GetConflictingReservationsAsync(int parkingSpotId, DateTime? arrivalTime,
+        DateTime? departureTime);
 }

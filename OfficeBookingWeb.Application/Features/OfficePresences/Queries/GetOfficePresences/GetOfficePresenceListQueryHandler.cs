@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using OfficeBookingWeb.Application.Contracts.Persistence;
 using OfficeBookingWeb.Domain.Entities;
 
@@ -18,8 +19,28 @@ public class GetOfficePresenceListQueryHandler : IRequestHandler<GetOfficePresen
 
     public async Task<List<OfficePresenceListVm>> Handle(GetOfficePresenceListQuery request, CancellationToken cancellationToken)
     {
-        var allOfficePresences = (await _officePresenceRepository.ListAllAsync()).OrderBy(o => o.PresenceDate);
+        var allOfficePresences = await _officePresenceRepository.GetQueryable()
+            .Include(op => op.Employee)
+            .Include(op => op.Employee.Department)
+            .Include(op => op.Room) 
+            .Include(op => op.ParkingReservation)
+            .ThenInclude(pr => pr.ParkingSpot) 
+            .OrderBy(o => o.PresenceDate)
+            .ToListAsync(cancellationToken);
 
-        return _mapper.Map<List<OfficePresenceListVm>>(allOfficePresences);
+        var officePresenceList = allOfficePresences.Select(op => new OfficePresenceListVm
+        {
+            PresenceDate = op.PresenceDate,
+            EmployeeFullName = op.Employee.FullName,
+            EmployeeDepartment = op.Employee.Department.DepartmentName,
+            RoomNumber = op.Room.RoomNumber,
+            ArrivalTime = op.ParkingReservation.ArrivalTime,
+            DepartureTime = op.ParkingReservation.DepartureTime,
+            ParkingSpot = op.ParkingReservation.ParkingSpot.SpotNumber,
+            Notes = op.Notes
+        }).ToList();
+
+
+        return _mapper.Map<List<OfficePresenceListVm>>(officePresenceList);
     }
 }
