@@ -13,10 +13,12 @@ namespace OfficeBookingWeb.Application.Features.ParkingReservations.Command
     public class ParkingReservationValidators
     {
         private readonly IParkingReservationRepository _parkingReservationRepository;
+        private IEmployeeRepository _employeeRepository;
 
-        public ParkingReservationValidators(IParkingReservationRepository parkingReservationRepository)
+        public ParkingReservationValidators(IParkingReservationRepository parkingReservationRepository, IEmployeeRepository employeeRepository)
         {
             _parkingReservationRepository = parkingReservationRepository;
+            _employeeRepository = employeeRepository;
         }
         public async Task<bool> HasConflictingReservationAsync(int parkingSpotId, DateTime? arrivalTime, DateTime? departureTime)
         {
@@ -39,6 +41,15 @@ namespace OfficeBookingWeb.Application.Features.ParkingReservations.Command
             foreach (var reservation in expiredReservations)
             {
                 await _parkingReservationRepository.SoftDeleteAsync(reservation);
+            }
+        }
+        public async Task ValidateEmployeeCarAsync(int employeeId)
+        {
+            var employee = await _employeeRepository.GetByIdAsync(employeeId);
+
+            if (!employee.Cars.Any()) 
+            {
+                throw new ArgumentException("The employee does not have a car and cannot reserve a parking spot.");
             }
         }
 

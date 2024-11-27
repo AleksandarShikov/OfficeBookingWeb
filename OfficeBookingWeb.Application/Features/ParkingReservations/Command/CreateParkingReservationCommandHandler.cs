@@ -33,11 +33,11 @@ namespace OfficeBookingWeb.Application.Features.ParkingReservations.Command
 
             var hasConflict =  await _parkingReservationValidators.HasConflictingReservationAsync(request.ParkingSpotId,
                 request.ArrivalTime, request.DepartureTime);
-
             if (hasConflict)
             {
                 throw new Exception("The parking spot is already reserved for the selected time range.");
             }
+            await _parkingReservationValidators.ValidateEmployeeCarAsync(request.EmployeeId);
 
             var parkingReservation = _mapper.Map<ParkingReservation>(request);
             await _parkingReservationRepository.AddAsync(parkingReservation);
