@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment';
-import { OfficePresence } from './office-presence-view.model';
+import { OfficePresence } from '../shared/office-presence-view.model';
 
 @Injectable({
   providedIn: 'root'
