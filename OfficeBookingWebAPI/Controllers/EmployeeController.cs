@@ -16,7 +16,7 @@ namespace OfficeBookingWebAPI.Controllers
 
         public EmployeeController(IMediator mediator)
         {
-            this._mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet("GetAllEmployees", Name = "GetAllEmployees")]

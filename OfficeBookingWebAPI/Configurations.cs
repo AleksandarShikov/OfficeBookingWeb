@@ -8,7 +8,7 @@ using OfficeBookingWeb.Persistence.Repositories;
 
 namespace OfficeBookingWebAPI
 {
-    public static class Extensions
+    public static class Configurations
     {
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {

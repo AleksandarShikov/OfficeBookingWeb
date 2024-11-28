@@ -12,8 +12,8 @@ namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployee
 {
     public class EmployeeCarsQueryHandler : IRequestHandler<EmployeeCarsListQuery, List<EmployeeCarsListVm>>
     {
-        public IEmployeeRepository _employeeRepository;
-        public IMapper _mapper;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IMapper _mapper;
 
         public EmployeeCarsQueryHandler(IMapper mapper, IEmployeeRepository employeeRepository)
         {

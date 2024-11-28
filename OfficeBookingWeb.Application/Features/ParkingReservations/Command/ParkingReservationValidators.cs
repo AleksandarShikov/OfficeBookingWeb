@@ -13,7 +13,7 @@ namespace OfficeBookingWeb.Application.Features.ParkingReservations.Command
     public class ParkingReservationValidators
     {
         private readonly IParkingReservationRepository _parkingReservationRepository;
-        private IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
         public ParkingReservationValidators(IParkingReservationRepository parkingReservationRepository, IEmployeeRepository employeeRepository)
         {
@@ -45,9 +45,11 @@ namespace OfficeBookingWeb.Application.Features.ParkingReservations.Command
         }
         public async Task ValidateEmployeeCarAsync(int employeeId)
         {
-            var employee = await _employeeRepository.GetByIdAsync(employeeId);
+            var employee = await _employeeRepository.GetQueryable()
+                .Include(e => e.Cars) 
+                .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
 
-            if (!employee.Cars.Any()) 
+            if (employee == null || !employee.Cars.Any())
             {
                 throw new ArgumentException("The employee does not have a car and cannot reserve a parking spot.");
             }

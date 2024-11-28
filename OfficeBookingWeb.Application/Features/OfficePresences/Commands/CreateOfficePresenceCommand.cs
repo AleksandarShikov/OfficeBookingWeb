@@ -7,7 +7,7 @@ using MediatR;
 using OfficeBookingWeb.Domain.Entities;
 
 
-namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateOfficePresence
+namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
 {
     public class CreateOfficePresenceCommand : IRequest<int>
     {
@@ -17,9 +17,9 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateO
         public int EmployeeId { get; set; }
 
         public int? ReservationId { get; set; }
-        
+
         public int RoomId { get; set; }
-        
+
         public string? Notes { get; set; }
     }
 }

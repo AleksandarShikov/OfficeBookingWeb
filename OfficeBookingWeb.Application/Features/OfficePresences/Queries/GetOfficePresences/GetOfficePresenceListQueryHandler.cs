@@ -2,23 +2,28 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OfficeBookingWeb.Application.Contracts.Persistence;
+using OfficeBookingWeb.Application.Features.OfficePresences.Commands;
 using OfficeBookingWeb.Domain.Entities;
 
 namespace OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOfficePresence;
 
 public class GetOfficePresenceListQueryHandler : IRequestHandler<GetOfficePresenceListQuery, List<OfficePresenceListVm>>
 {
-    private readonly IAsyncRepository<OfficePresence> _officePresenceRepository;
+    private readonly IOfficePresenceRepository _officePresenceRepository;
     private readonly IMapper _mapper;
+    private readonly OfficePresenceValidators _officePresenceValidators;
 
-    public GetOfficePresenceListQueryHandler(IMapper mapper, IAsyncRepository<OfficePresence> officePresenceRepository)
+    public GetOfficePresenceListQueryHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository,
+        OfficePresenceValidators officePresenceValidators)
     {
         _mapper = mapper;
         _officePresenceRepository = officePresenceRepository;
+        _officePresenceValidators = officePresenceValidators;
     }
 
     public async Task<List<OfficePresenceListVm>> Handle(GetOfficePresenceListQuery request, CancellationToken cancellationToken)
     {
+        await _officePresenceValidators.CleanUpExpiredPresences();
         var allOfficePresences = await _officePresenceRepository.GetQueryable()
             .Include(op => op.Employee)
             .Include(op => op.Employee.Department)

@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployeesWithCars;
-using OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateOfficePresence;
+using OfficeBookingWeb.Application.Features.OfficePresences.Commands;
 using OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOfficePresence;
 
 namespace OfficeBookingWebAPI.Controllers
@@ -39,5 +39,14 @@ namespace OfficeBookingWebAPI.Controllers
             var response = await _mediator.Send(new DeleteOfficePresenceCommand { PresenceId = presenceId });
             return Ok(response);
         }
+
+        [HttpPut("UpdateOfficePresence/{presenceId}", Name = "UpdateOfficePresence")]
+        public async Task<ActionResult<bool>> UpdateOfficePresence(int presenceId,
+            [FromBody] UpdateOfficePresenceCommand updateOfficePresenceCommand)
+        {
+            var response = await _mediator.Send(updateOfficePresenceCommand);
+            return Ok(response);
+        }
+
     }
 }

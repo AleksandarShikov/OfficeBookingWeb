@@ -3,24 +3,27 @@ using MediatR;
 using OfficeBookingWeb.Application.Contracts.Persistence;
 using OfficeBookingWeb.Domain.Entities;
 
-namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateOfficePresence
+namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
 {
-    public class CreateOfficePresenceCommandHandler : IRequestHandler<CreateOfficePresenceCommand,int>
+    public class CreateOfficePresenceCommandHandler : IRequestHandler<CreateOfficePresenceCommand, int>
     {
         private readonly IMapper _mapper;
         private readonly IOfficePresenceRepository _officePresenceRepositoryRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IOfficeRoomRepository _officeRoomRepository;
         private readonly IParkingReservationRepository _parkingReservationRepository;
+        private readonly OfficePresenceValidators _officePresenceValidators;
 
-        public CreateOfficePresenceCommandHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository, 
-            IOfficeRoomRepository officeRoomRepository,IEmployeeRepository employeeRepository,IParkingReservationRepository parkingReservationRepository)
+        public CreateOfficePresenceCommandHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository,
+            IOfficeRoomRepository officeRoomRepository, IEmployeeRepository employeeRepository,
+            IParkingReservationRepository parkingReservationRepository,OfficePresenceValidators officePresenceValidators)
         {
-            this._mapper = mapper;
+            _mapper = mapper;
             _officePresenceRepositoryRepository = officePresenceRepository;
             _employeeRepository = employeeRepository;
             _officeRoomRepository = officeRoomRepository;
             _parkingReservationRepository = parkingReservationRepository;
+            _officePresenceValidators = officePresenceValidators;
         }
         public async Task<int> Handle(CreateOfficePresenceCommand request, CancellationToken cancellationToken)
         {
@@ -62,7 +65,7 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateO
                     throw new ArgumentException($"Employee ID {request.EmployeeId} does not match the one in the parking reservation.");
                 }
             }
-            var officePresences = await _officePresenceRepositoryRepository.ListAllAsync(); // Or GetAll() if you're using synchronous method
+            var officePresences = await _officePresenceRepositoryRepository.ListAllAsync(); 
             foreach (var existingPresence in officePresences)
             {
                 if (existingPresence.EmployeeId == request.EmployeeId && existingPresence.PresenceDate == request.PresenceDate)
@@ -73,6 +76,8 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateO
 
             var officePresence = _mapper.Map<OfficePresence>(request);
             var createdOfficePresence = await _officePresenceRepositoryRepository.AddAsync(officePresence);
+
+            await _officePresenceValidators.CleanUpExpiredPresences();
 
             return createdOfficePresence.PresenceId;
         }

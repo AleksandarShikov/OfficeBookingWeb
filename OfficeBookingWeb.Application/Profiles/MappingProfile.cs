@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using OfficeBookingWeb.Application.Features.Cars.Command;
 using OfficeBookingWeb.Application.Features.Employees.Command;
-using OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateOfficePresence;
 using OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOfficePresence;
-using OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateOfficePresence;
 using OfficeBookingWeb.Domain.Entities;
 using OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployees;
 using OfficeBookingWeb.Application.Features.DTOs;
 using OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployeesWithCars;
 using OfficeBookingWeb.Application.Features.ParkingReservations.Command;
+using OfficeBookingWeb.Application.Features.OfficePresences.Commands;
 
 namespace OfficeBookingWeb.Application.Profiles
 {

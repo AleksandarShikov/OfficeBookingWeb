@@ -7,17 +7,20 @@ using AutoMapper;
 using MediatR;
 using OfficeBookingWeb.Application.Contracts.Persistence;
 
-namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateOfficePresence
+namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
 {
-    public class DeleteOfficePresenceCommandHandler : IRequestHandler<DeleteOfficePresenceCommand,bool>
+    public class DeleteOfficePresenceCommandHandler : IRequestHandler<DeleteOfficePresenceCommand, bool>
     {
         private readonly IMapper _mapper;
         private readonly IOfficePresenceRepository _officePresenceRepository;
+        private readonly OfficePresenceValidators _officePresenceValidators;
 
-        public DeleteOfficePresenceCommandHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository)
+        public DeleteOfficePresenceCommandHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository, 
+            OfficePresenceValidators officePresenceValidators)
         {
             _mapper = mapper;
             _officePresenceRepository = officePresenceRepository;
+            _officePresenceValidators = officePresenceValidators;
         }
 
         public async Task<bool> Handle(DeleteOfficePresenceCommand request, CancellationToken cancellationToken)
@@ -28,9 +31,10 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands.CreateO
                 throw new ArgumentException("Office presence record not found");
             }
 
-            await  _officePresenceRepository.SoftDeleteAsync(officePresence);
+            await _officePresenceRepository.SoftDeleteAsync(officePresence);
+            await _officePresenceValidators.CleanUpExpiredPresences();
 
-          return true;
+            return true;
         }
     }
 }

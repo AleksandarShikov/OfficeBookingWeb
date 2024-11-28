@@ -12,10 +12,10 @@ namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployee
 {
     public class GetEmployeeQueryHandler : IRequestHandler<GetEmployeeListQuery, List<EmployeeListVm>>
     {
-        public IAsyncRepository<Employee> _employeeRepository;
-        public IMapper _mapper;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IMapper _mapper;
 
-        public GetEmployeeQueryHandler(IMapper mapper, IAsyncRepository<Employee> employeeRepository)
+        public GetEmployeeQueryHandler(IMapper mapper, IEmployeeRepository employeeRepository)
         {
             _mapper = mapper;
             _employeeRepository = employeeRepository;

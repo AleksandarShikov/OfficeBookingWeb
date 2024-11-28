@@ -17,7 +17,7 @@ namespace OfficeBookingWeb.Application.Features.Employees.Command
 
         public CreateEmployeeCommandHandler(IMapper mapper, IEmployeeRepository employeeRepository)
         {
-            this._mapper = mapper;
+            _mapper = mapper;
             _employeeRepository = employeeRepository;
         }
 
