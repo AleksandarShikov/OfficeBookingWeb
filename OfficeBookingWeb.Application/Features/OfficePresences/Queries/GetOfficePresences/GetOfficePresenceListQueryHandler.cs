@@ -39,9 +39,9 @@ public class GetOfficePresenceListQueryHandler : IRequestHandler<GetOfficePresen
             EmployeeFullName = op.Employee.FullName,
             EmployeeDepartment = op.Employee.Department.DepartmentName,
             RoomNumber = op.Room.RoomNumber,
-            ArrivalTime = op.ParkingReservation.ArrivalTime,
-            DepartureTime = op.ParkingReservation.DepartureTime,
-            ParkingSpot = op.ParkingReservation.ParkingSpot.SpotNumber,
+            ArrivalTime = op.ParkingReservation?.ArrivalTime,
+            DepartureTime = op.ParkingReservation?.DepartureTime,
+            ParkingSpot = op.ParkingReservation?.ParkingSpot.SpotNumber,
             Notes = op.Notes
         }).ToList();
 

@@ -1,4 +1,4 @@
-export class OfficePresence {
+export class OfficePresenceView {
   presenceDate: string = ""
   employeeFullName: string = ""
   employeeDepartment: string = ""

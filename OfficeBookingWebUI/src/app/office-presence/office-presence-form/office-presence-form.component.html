@@ -1,0 +1,45 @@
+<form (ngSubmit)="onSubmit()" #officePresenceForm="ngForm">
+
+  <div class="form-group">
+    <label for="presenceDate">Presence Date</label>
+    <input type="date"
+           id="presenceDate"
+           class="form-control"
+           [(ngModel)]="formData.presenceDate"
+           name="presenceDate"
+           required />
+  </div>
+
+  <div class="form-group">
+    <label for="employeeId">Select Employee</label>
+    <select id="employeeId" class="form-control" [(ngModel)]="formData.employeeId" name="employeeId" required>
+      <option value="" disabled selected>Select Employee</option>
+      <option *ngFor="let employee of employees" [value]="employee.employeeId">{{ employee.fullName }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="officeRoomId">Select Office Room</label>
+    <select id="officeRoomId"
+            class="form-control"
+            [(ngModel)]="formData.roomId"
+            name="officeRoomId"
+            required>
+      <option value="" disabled selected>Select Office Room</option>
+      <option *ngFor="let officeRoom of officeRooms" [value]="officeRoom.roomId">
+        {{ officeRoom.roomNumber }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="notes">Notes</label>
+    <textarea id="notes"
+              class="form-control"
+              [(ngModel)]="formData.notes"
+              name="notes"
+              rows="3"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

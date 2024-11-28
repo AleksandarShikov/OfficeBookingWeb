@@ -13,6 +13,8 @@ using OfficeBookingWeb.Application.Features.DTOs;
 using OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployeesWithCars;
 using OfficeBookingWeb.Application.Features.ParkingReservations.Command;
 using OfficeBookingWeb.Application.Features.OfficePresences.Commands;
+using OfficeBookingWeb.Application.Features.OfficeRooms.Queries;
+using OfficeBookingWeb.Application.Features.ParkingSpots.Queries;
 
 namespace OfficeBookingWeb.Application.Profiles
 {
@@ -31,7 +33,8 @@ namespace OfficeBookingWeb.Application.Profiles
             CreateMap<Car, CarDTO>().ReverseMap();
 
             CreateMap<ParkingReservation, CreateParkingReservationCommand>().ReverseMap();
-
+            CreateMap<OfficeRoom,OfficeRoomListVm>().ReverseMap();
+            CreateMap<ParkingSpot, ParkingSpotListVm>().ReverseMap();
         }
     }
 }

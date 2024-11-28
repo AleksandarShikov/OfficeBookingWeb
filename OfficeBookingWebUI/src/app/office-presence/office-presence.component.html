@@ -15,7 +15,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let presence of service.list; let i = index">
+      <tr *ngFor="let presence of list; let i = index">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ presence.presenceDate }}</td>
         <td>{{ presence.employeeFullName }}</td>

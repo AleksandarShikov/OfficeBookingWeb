@@ -1,18 +1,34 @@
 import { Component,OnInit } from '@angular/core';
 import { OfficePresenceService } from '../shared/office-presence.service';
+import { OfficePresenceView } from '../shared/office-presence-view.model';
 
 @Component({
   selector: 'app-office-presence',
   standalone: false,
-  
+
   templateUrl: './office-presence.component.html',
   styleUrl: './office-presence.component.css'
 })
 export class OfficePresenceComponent implements OnInit {
-  constructor(public service: OfficePresenceService) {
+  list: any[] = []
+  constructor(private officePresenceService: OfficePresenceService) {
 
   }
+
   ngOnInit(): void {
-    this.service.refreshList();
-    }
+    this.refreshList();
+  }
+
+  refreshList(): void {
+    this.officePresenceService.getOfficePresences().subscribe({
+      next: (data) => {
+        this.list = data;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  
 }
