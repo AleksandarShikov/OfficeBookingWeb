@@ -22,7 +22,7 @@ namespace OfficeBookingWeb.Application.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<OfficePresence, OfficePresenceListVm>().ReverseMap();
+            CreateMap<OfficePresence, OfficePresenceDetailsListVm>().ReverseMap();
             CreateMap<OfficePresence, CreateOfficePresenceCommand>().ReverseMap();
 
             CreateMap<Employee, EmployeeListVm>().ReverseMap();
@@ -30,11 +30,14 @@ namespace OfficeBookingWeb.Application.Profiles
             CreateMap<Employee, CreateEmployeeCommand>().ReverseMap();
 
             CreateMap<Car, CreateCarCommand>().ReverseMap();
-            CreateMap<Car, CarDTO>().ReverseMap();
+            CreateMap<Car, CarDto>().ReverseMap();
 
             CreateMap<ParkingReservation, CreateParkingReservationCommand>().ReverseMap();
             CreateMap<OfficeRoom,OfficeRoomListVm>().ReverseMap();
             CreateMap<ParkingSpot, ParkingSpotListVm>().ReverseMap();
+
+            CreateMap<OfficePresence, CreateOfficePresenceWithReservationCommand>().ReverseMap();
+            CreateMap<ParkingReservation, CreateOfficePresenceWithReservationCommand>().ReverseMap();
         }
     }
 }

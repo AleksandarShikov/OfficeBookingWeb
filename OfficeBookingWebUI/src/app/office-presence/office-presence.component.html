@@ -1,5 +1,5 @@
 <div class="row mt-5">
-  <div class="col-6">
+  <div class="col-8">
     <table class="table">
       <thead>
       <tr>
@@ -25,12 +25,14 @@
         <td>{{ presence.arrivalTime | date: 'shortTime' }}</td>
         <td>{{ presence.departureTime | date: 'shortTime' }}</td>
         <td>{{ presence.notes }}</td>
+        <td>
+        </td>
       </tr>
       </tbody>
     </table>
 
   </div>
-  <div class="col-6">
+  <div class="col-3">
     <app-office-presence-form />
   </div>
 </div>

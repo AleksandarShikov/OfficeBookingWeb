@@ -1,10 +1,12 @@
 export class OfficePresenceView {
-  presenceDate: string = ""
+  presenceId: number = 0
+  employeeId: number = 0
+  presenceDate: Date = new Date
   employeeFullName: string = ""
   employeeDepartment: string = ""
   parkingSpot: number = 0
   roomNumber: string = ""
-  arrivalTime: Date = new Date("2024-11-27T14:42:37.925Z")
-  departureTime: Date = new Date("2024-11-27T14:42:37.925Z")
+  arrivalTime: Date = new Date
+  departureTime: Date = new Date
   notes: string = ""
 }

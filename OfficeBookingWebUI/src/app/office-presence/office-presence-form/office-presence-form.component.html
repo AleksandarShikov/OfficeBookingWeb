@@ -1,4 +1,7 @@
+
+
 <form (ngSubmit)="onSubmit()" #officePresenceForm="ngForm">
+  <h2 align="center">Enter Office Presence</h2>
 
   <div class="form-group">
     <label for="presenceDate">Presence Date</label>
@@ -32,6 +35,43 @@
     </select>
   </div>
 
+  <!-- Parking Spot Dropdown -->
+  <div class="form-group">
+    <label for="parkingSpotId">Select Parking Spot</label>
+    <select id="parkingSpotId"
+            class="form-control"
+            [(ngModel)]="formData.parkingSpotId"
+            name="parkingSpotId"
+            required>
+      <option value="" disabled selected>Select Parking Spot</option>
+      <option *ngFor="let parkingSpot of parkingSpots" [value]="parkingSpot.parkingSpotId">
+        {{ parkingSpot.spotNumber }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Arrival Time (Date and Time) -->
+  <div class="form-group">
+    <label for="arrivalTime">Arrival Date and Time</label>
+    <input type="datetime-local"
+           id="arrivalTime"
+           class="form-control"
+           [(ngModel)]="formData.arrivalTime"
+           name="arrivalTime"
+           required />
+  </div>
+
+  <!-- Departure Time (Date and Time) -->
+  <div class="form-group">
+    <label for="departureTime">Departure Date and Time</label>
+    <input type="datetime-local"
+           id="departureTime"
+           class="form-control"
+           [(ngModel)]="formData.departureTime"
+           name="departureTime"
+           required />
+  </div>
+
   <div class="form-group">
     <label for="notes">Notes</label>
     <textarea id="notes"
@@ -41,5 +81,5 @@
               rows="3"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Add Presence</button>
 </form>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using OfficeBookingWeb.Application.Contracts.Persistence;
+using OfficeBookingWeb.Application.Features.ParkingReservations.Command;
 using OfficeBookingWeb.Domain.Entities;
 
 namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
@@ -13,10 +14,12 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
         private readonly IOfficeRoomRepository _officeRoomRepository;
         private readonly IParkingReservationRepository _parkingReservationRepository;
         private readonly OfficePresenceValidators _officePresenceValidators;
+        private readonly ParkingReservationValidators _parkingReservationValidators;
 
         public CreateOfficePresenceCommandHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository,
             IOfficeRoomRepository officeRoomRepository, IEmployeeRepository employeeRepository,
-            IParkingReservationRepository parkingReservationRepository,OfficePresenceValidators officePresenceValidators)
+            IParkingReservationRepository parkingReservationRepository,OfficePresenceValidators officePresenceValidators,
+            ParkingReservationValidators parkingReservationValidators)
         {
             _mapper = mapper;
             _officePresenceRepositoryRepository = officePresenceRepository;
@@ -24,6 +27,7 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
             _officeRoomRepository = officeRoomRepository;
             _parkingReservationRepository = parkingReservationRepository;
             _officePresenceValidators = officePresenceValidators;
+            _parkingReservationValidators = parkingReservationValidators;
         }
         public async Task<int> Handle(CreateOfficePresenceCommand request, CancellationToken cancellationToken)
         {
@@ -78,6 +82,7 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
             var createdOfficePresence = await _officePresenceRepositoryRepository.AddAsync(officePresence);
 
             await _officePresenceValidators.CleanUpExpiredPresences();
+            await _parkingReservationValidators.CleanUpExpiredReservationsAsync();
 
             return createdOfficePresence.PresenceId;
         }

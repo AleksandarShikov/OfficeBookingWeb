@@ -1,10 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { OfficePresenceService } from "../../shared/office-presence.service";
 import { Employee } from "../../shared/employee.model";
 import { OfficePresence } from "../../shared/office-presence.model";
 import { OfficeRoom } from "../../shared/office-room.model";
 import { ParkingReservation } from "../../shared/parking-reservation.model";
 import { ParkingSpot } from "../../shared/parking-spot.model";
+import { OfficePresenceWithReservation } from "../../shared/office-presence-with-reservation.model";
+
 
 
 @Component({
@@ -15,10 +17,12 @@ import { ParkingSpot } from "../../shared/parking-spot.model";
   styleUrl: './office-presence-form.component.css'
 })
 export class OfficePresenceFormComponent implements OnInit {
-
-  formData: OfficePresence = new OfficePresence()
+  formData: OfficePresenceWithReservation = new OfficePresenceWithReservation
   employees: Employee[] = []
   officeRooms: OfficeRoom[] = []
+  parkingSpots: ParkingSpot[] = []
+
+
   constructor(private officePresenceService: OfficePresenceService) {
 
   }
@@ -26,6 +30,7 @@ export class OfficePresenceFormComponent implements OnInit {
   ngOnInit(): void {
     this.loadEmployees();
     this.loadOfficeRooms();
+    this.loadParkingSpots();
   }
 
   loadEmployees(): void {
@@ -39,6 +44,16 @@ export class OfficePresenceFormComponent implements OnInit {
     });
   }
 
+  loadParkingSpots(): void {
+    this.officePresenceService.getParkingSpots().subscribe({
+      next: (data) => {
+        this.parkingSpots = data;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
 
   loadOfficeRooms(): void {
     this.officePresenceService.getOfficeRooms().subscribe({
@@ -51,17 +66,15 @@ export class OfficePresenceFormComponent implements OnInit {
     });
   }
 
+
   onSubmit(): void {
     this.createOfficePresence();
   }
 
-  
-
   createOfficePresence(): void {
     this.officePresenceService.createOfficePresence(this.formData).subscribe({
       next: (response) => {
-        console.log('Office presence created successfully');
-        window.location.reload();
+        console.log('Office presence created successfully', response);
       },
       error: (err) => {
         console.error('Error creating office presence:', err);
@@ -70,6 +83,10 @@ export class OfficePresenceFormComponent implements OnInit {
   }
 
 
+
+
 }
+
+
 
 

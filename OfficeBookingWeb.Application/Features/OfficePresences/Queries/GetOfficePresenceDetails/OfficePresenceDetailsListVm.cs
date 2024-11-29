@@ -2,7 +2,7 @@
 
 namespace OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOfficePresence;
 
-public class OfficePresenceListVm
+public class OfficePresenceDetailsListVm
 {
 
     public DateOnly PresenceDate { get; set; }

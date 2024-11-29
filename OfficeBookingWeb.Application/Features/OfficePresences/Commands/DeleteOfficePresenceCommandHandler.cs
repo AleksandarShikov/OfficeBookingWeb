@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using OfficeBookingWeb.Application.Contracts.Persistence;
+using OfficeBookingWeb.Application.Features.ParkingReservations.Command;
 
 namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
 {
@@ -14,13 +15,15 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
         private readonly IMapper _mapper;
         private readonly IOfficePresenceRepository _officePresenceRepository;
         private readonly OfficePresenceValidators _officePresenceValidators;
+        private readonly ParkingReservationValidators _parkingReservationValidators;
 
         public DeleteOfficePresenceCommandHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository, 
-            OfficePresenceValidators officePresenceValidators)
+            OfficePresenceValidators officePresenceValidators, ParkingReservationValidators parkingReservationValidators)
         {
             _mapper = mapper;
             _officePresenceRepository = officePresenceRepository;
             _officePresenceValidators = officePresenceValidators;
+            _parkingReservationValidators = parkingReservationValidators;
         }
 
         public async Task<bool> Handle(DeleteOfficePresenceCommand request, CancellationToken cancellationToken)
@@ -33,6 +36,7 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
 
             await _officePresenceRepository.SoftDeleteAsync(officePresence);
             await _officePresenceValidators.CleanUpExpiredPresences();
+            await _parkingReservationValidators.CleanUpExpiredReservationsAsync();
 
             return true;
         }

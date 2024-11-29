@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { OfficePresenceComponent } from './office-presence/office-presence.component';
 import { OfficePresenceFormComponent } from './office-presence/office-presence-form/OfficePresenceFormComponent';
 import { HttpClientModule } from '@angular/common/http';
+import { ParkingReservationFormComponent } from './office-presence/parking-reservation-form/parking-reservation-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OfficePresenceComponent,
-    OfficePresenceFormComponent
+    OfficePresenceFormComponent,
+    ParkingReservationFormComponent
   ],
   imports: [
     BrowserModule,

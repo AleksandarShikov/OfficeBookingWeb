@@ -10,8 +10,10 @@ namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployee
 {
     public class EmployeeCarsListVm
     {
+        public int EmployeeId { get; set; }
+
         public string FullName { get; set; }
 
-        public List<CarDTO> Cars { get; set; }
+        public List<CarDto> Cars { get; set; }
     }
 }

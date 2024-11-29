@@ -7,7 +7,7 @@ using MediatR;
 
 namespace OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOfficePresence
 {
-    public class GetOfficePresenceListQuery : IRequest<List<OfficePresenceListVm>>
+    public class GetOfficePresenceDetailsListQuery : IRequest<List<OfficePresenceDetailsListVm>>
     {
 
     }

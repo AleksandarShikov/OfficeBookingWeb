@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OfficeBookingWeb.Application.Features.DTOs
 {
-    public class CarDTO
+    public class CarDto
     {
         public int CarId { get; set; }
         public int EmployeeId { get; set; }

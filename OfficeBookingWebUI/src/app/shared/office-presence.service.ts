@@ -32,6 +32,11 @@ export class OfficePresenceService {
   createOfficePresence(data: OfficePresence): Observable<OfficePresence> {
     return this.http.post<OfficePresence>(`${environment.apiBaseUrl}/OfficePresence/CreateOfficePresence`, data);
   }
- 
+  createParkingReservation(data: ParkingReservation): Observable<ParkingReservation> {
+    return this.http.post<ParkingReservation>(`${environment.apiBaseUrl}/ParkingReservation/CreateParkingReservation`, data);
+  }
+  //updateOfficePresence(data: OfficePresence): Observable<OfficePresence> {
+  //  return this.http.put<OfficePresence>(`${environment.apiBaseUrl}/OfficePresence/UpdateOfficePresence`, data);
+  //}
 
 }

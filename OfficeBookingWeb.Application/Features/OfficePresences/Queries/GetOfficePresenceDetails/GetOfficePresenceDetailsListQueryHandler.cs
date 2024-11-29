@@ -7,13 +7,13 @@ using OfficeBookingWeb.Domain.Entities;
 
 namespace OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOfficePresence;
 
-public class GetOfficePresenceListQueryHandler : IRequestHandler<GetOfficePresenceListQuery, List<OfficePresenceListVm>>
+public class GetOfficePresenceDetailsListQueryHandler : IRequestHandler<GetOfficePresenceDetailsListQuery, List<OfficePresenceDetailsListVm>>
 {
     private readonly IOfficePresenceRepository _officePresenceRepository;
     private readonly IMapper _mapper;
     private readonly OfficePresenceValidators _officePresenceValidators;
 
-    public GetOfficePresenceListQueryHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository,
+    public GetOfficePresenceDetailsListQueryHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository,
         OfficePresenceValidators officePresenceValidators)
     {
         _mapper = mapper;
@@ -21,19 +21,19 @@ public class GetOfficePresenceListQueryHandler : IRequestHandler<GetOfficePresen
         _officePresenceValidators = officePresenceValidators;
     }
 
-    public async Task<List<OfficePresenceListVm>> Handle(GetOfficePresenceListQuery request, CancellationToken cancellationToken)
+    public async Task<List<OfficePresenceDetailsListVm>> Handle(GetOfficePresenceDetailsListQuery request, CancellationToken cancellationToken)
     {
         await _officePresenceValidators.CleanUpExpiredPresences();
         var allOfficePresences = await _officePresenceRepository.GetQueryable()
             .Include(op => op.Employee)
             .Include(op => op.Employee.Department)
             .Include(op => op.Room) 
-            .Include(op => op.ParkingReservation)
+            .Include(op => op.Employee.ParkingReservations)
             .ThenInclude(pr => pr.ParkingSpot) 
             .OrderBy(o => o.PresenceDate)
             .ToListAsync(cancellationToken);
 
-        var officePresenceList = allOfficePresences.Select(op => new OfficePresenceListVm
+        var officePresenceList = allOfficePresences.Select(op => new OfficePresenceDetailsListVm
         {
             PresenceDate = op.PresenceDate,
             EmployeeFullName = op.Employee.FullName,
@@ -46,6 +46,6 @@ public class GetOfficePresenceListQueryHandler : IRequestHandler<GetOfficePresen
         }).ToList();
 
 
-        return _mapper.Map<List<OfficePresenceListVm>>(officePresenceList);
+        return _mapper.Map<List<OfficePresenceDetailsListVm>>(officePresenceList);
     }
 }

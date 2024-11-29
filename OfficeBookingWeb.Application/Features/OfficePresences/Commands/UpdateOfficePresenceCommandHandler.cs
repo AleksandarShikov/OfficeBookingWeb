@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using OfficeBookingWeb.Application.Contracts.Persistence;
+using OfficeBookingWeb.Application.Features.ParkingReservations.Command;
 
 namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
 {
@@ -17,10 +18,12 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
         private readonly IOfficeRoomRepository _officeRoomRepository;
         private readonly IParkingReservationRepository _parkingReservationRepository;
         private readonly OfficePresenceValidators _officePresenceValidators;
+        private readonly ParkingReservationValidators _parkingReservationValidators;
 
         public UpdateOfficePresenceCommandHandler(IMapper mapper, IOfficePresenceRepository officePresenceRepository,
             IOfficeRoomRepository officeRoomRepository, IEmployeeRepository employeeRepository,
-            IParkingReservationRepository parkingReservationRepository,OfficePresenceValidators officePresenceValidators)
+            IParkingReservationRepository parkingReservationRepository,OfficePresenceValidators officePresenceValidators,
+            ParkingReservationValidators parkingReservationValidators)
         {
             _mapper = mapper;
             _officePresenceRepository = officePresenceRepository;
@@ -28,6 +31,7 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
             _officeRoomRepository = officeRoomRepository;
             _parkingReservationRepository = parkingReservationRepository;
             _officePresenceValidators = officePresenceValidators;
+            _parkingReservationValidators = parkingReservationValidators;
         }
         public async Task<bool> Handle(UpdateOfficePresenceCommand request, CancellationToken cancellationToken)
         {
@@ -90,6 +94,7 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Commands
 
             await _officePresenceRepository.UpdateAsync(officePresence);
             await _officePresenceValidators.CleanUpExpiredPresences();
+            await _parkingReservationValidators.CleanUpExpiredReservationsAsync();
             return true;
         }
     }

@@ -27,11 +27,12 @@ namespace OfficeBookingWebAPI.Controllers
         }
 
         [HttpGet("GetAllOfficePresences", Name = "GetAllOfficePresences")]
-        public async Task<ActionResult<List<OfficePresenceListVm>>> GetAllOfficePresences()
+        public async Task<ActionResult<List<OfficePresenceDetailsListVm>>> GetAllOfficePresences()
         {
-            var response = await _mediator.Send(new GetOfficePresenceListQuery());
+            var response = await _mediator.Send(new GetOfficePresenceDetailsListQuery());
             return Ok(response);
         }
+
 
         [HttpDelete("DeleteOfficePresence/{presenceId}", Name = "DeleteOfficePresence")]
         public async Task<ActionResult<bool>> DeleteOfficePresence(int presenceId)
