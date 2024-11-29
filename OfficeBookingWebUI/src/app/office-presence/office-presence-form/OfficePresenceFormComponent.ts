@@ -75,6 +75,7 @@ export class OfficePresenceFormComponent implements OnInit {
     this.officePresenceService.createOfficePresence(this.formData).subscribe({
       next: (response) => {
         console.log('Office presence created successfully', response);
+        window.location.reload();
       },
       error: (err) => {
         console.error('Error creating office presence:', err);

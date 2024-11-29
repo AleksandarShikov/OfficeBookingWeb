@@ -1,8 +1,7 @@
-
-
 <form (ngSubmit)="onSubmit()" #officePresenceForm="ngForm">
   <h2 align="center">Enter Office Presence</h2>
 
+  <!-- Presence Date -->
   <div class="form-group">
     <label for="presenceDate">Presence Date</label>
     <input type="date"
@@ -13,6 +12,7 @@
            required />
   </div>
 
+  <!-- Select Employee -->
   <div class="form-group">
     <label for="employeeId">Select Employee</label>
     <select id="employeeId" class="form-control" [(ngModel)]="formData.employeeId" name="employeeId" required>
@@ -21,6 +21,7 @@
     </select>
   </div>
 
+  <!-- Select Office Room -->
   <div class="form-group">
     <label for="officeRoomId">Select Office Room</label>
     <select id="officeRoomId"
@@ -72,6 +73,7 @@
            required />
   </div>
 
+  <!-- Notes -->
   <div class="form-group">
     <label for="notes">Notes</label>
     <textarea id="notes"
@@ -81,5 +83,20 @@
               rows="3"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Add Presence</button>
+  <!-- Is Reservation Required Checkbox -->
+  <div class="form-check">
+    <input type="checkbox"
+           id="isReservationRequired"
+           class="form-check-input"
+           [(ngModel)]="formData.isReservationRequired"
+           name="isReservationRequired" />
+    <label class="form-check-label" for="isReservationRequired">
+      Is Parking Reservation Required?
+    </label>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="form-group text-center">
+    <button type="submit" class="btn btn-primary">Add Presence</button>
+  </div>
 </form>

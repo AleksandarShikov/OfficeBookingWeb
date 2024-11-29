@@ -9,6 +9,7 @@ import { FormBuilder } from '@angular/forms';
 import { OfficeRoom } from './office-room.model';
 import { Observable } from 'rxjs';
 import { OfficePresenceView } from './office-presence-view.model';
+import { OfficePresenceWithReservation } from './office-presence-with-reservation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,8 @@ export class OfficePresenceService {
   getOfficeRooms(): Observable<OfficeRoom[]> {
     return this.http.get<OfficeRoom[]>(`${environment.apiBaseUrl}/OfficeRoom/GetAllOfficeRooms`);
   }
-  createOfficePresence(data: OfficePresence): Observable<OfficePresence> {
-    return this.http.post<OfficePresence>(`${environment.apiBaseUrl}/OfficePresence/CreateOfficePresence`, data);
+  createOfficePresence(data: OfficePresenceWithReservation): Observable<OfficePresenceWithReservation> {
+    return this.http.post<OfficePresenceWithReservation>(`${environment.apiBaseUrl}/OfficeReservation/CreatePresenceWithReservation`, data);
   }
   createParkingReservation(data: ParkingReservation): Observable<ParkingReservation> {
     return this.http.post<ParkingReservation>(`${environment.apiBaseUrl}/ParkingReservation/CreateParkingReservation`, data);

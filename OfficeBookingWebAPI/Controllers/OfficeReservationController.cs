@@ -16,7 +16,7 @@ namespace OfficeBookingWebAPI.Controllers
             this._mediator = mediator;
         }
 
-        [HttpPost("CreatePresenceWithReservation")]
+        [HttpPost("CreatePresenceWithReservation",Name = "CreatePresenceWithReservation")]
         public async Task<ActionResult> CreateOfficePresenceWithReservation(OfficePresenceReservationDto dto)
         {
             var command = new CreateOfficePresenceWithReservationCommand( dto.PresenceDate, dto.EmployeeId,
