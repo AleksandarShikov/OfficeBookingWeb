@@ -35,6 +35,7 @@ public class GetOfficePresenceDetailsListQueryHandler : IRequestHandler<GetOffic
 
         var officePresenceList = allOfficePresences.Select(op => new OfficePresenceDetailsListVm
         {
+            PresenceId = op.PresenceId,
             PresenceDate = op.PresenceDate,
             EmployeeFullName = op.Employee.FullName,
             EmployeeDepartment = op.Employee.Department.DepartmentName,

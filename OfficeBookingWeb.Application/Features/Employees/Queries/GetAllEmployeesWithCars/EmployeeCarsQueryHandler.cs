@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using OfficeBookingWeb.Application.Contracts.Persistence;
 using OfficeBookingWeb.Domain.Entities;
 
@@ -23,8 +24,16 @@ namespace OfficeBookingWeb.Application.Features.Employees.Queries.GetAllEmployee
 
         public async Task<List<EmployeeCarsListVm>> Handle(EmployeeCarsListQuery request, CancellationToken cancellationToken)
         {
-            var employeeCars = (await _employeeRepository.GetEmployeesWithCars()).OrderBy(e => e.EmployeeId).ToList();
-            return _mapper.Map<List<EmployeeCarsListVm>>(employeeCars);
+            var employeeCars = await _employeeRepository.GetEmployeesWithCars();
+
+            var employeeCarsList = employeeCars.SelectMany(e => e.Cars.Select(c => new EmployeeCarsListVm
+            {
+                FullName = e.FullName,
+                CarBrand = c.CarBrand,
+                RegisterNumber = c.RegisterNumber
+            }).ToList());
+            return _mapper.Map<List<EmployeeCarsListVm>>(employeeCarsList);
+           
         }
     }
 }

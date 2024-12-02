@@ -4,7 +4,7 @@ namespace OfficeBookingWeb.Application.Features.OfficePresences.Queries.GetOffic
 
 public class OfficePresenceDetailsListVm
 {
-
+    public int PresenceId { get; set; }
     public DateOnly PresenceDate { get; set; }
 
     public string EmployeeFullName { get; set; }

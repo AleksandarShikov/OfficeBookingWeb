@@ -1,3 +1,5 @@
+
+
 <div class="row mt-5">
   <div class="col-8">
     <table class="table">
@@ -12,22 +14,24 @@
         <th scope="col">Arrival Time</th>
         <th scope="col">Departure Time</th>
         <th scope="col">Notes</th>
+        <th scope="col">Actions</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let presence of list; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ presence.presenceDate }}</td>
-        <td>{{ presence.employeeFullName }}</td>
-        <td>{{ presence.employeeDepartment }}</td>
-        <td>{{ presence.roomNumber }}</td>
-        <td>{{ presence.parkingSpot }}</td>
-        <td>{{ presence.arrivalTime | date: 'shortTime' }}</td>
-        <td>{{ presence.departureTime | date: 'shortTime' }}</td>
-        <td>{{ presence.notes }}</td>
-        <td>
-        </td>
-      </tr>
+        <tr *ngFor="let presence of list; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ presence.presenceDate }}</td>
+          <td>{{ presence.employeeFullName }}</td>
+          <td>{{ presence.employeeDepartment }}</td>
+          <td>{{ presence.roomNumber }}</td>
+          <td>{{ presence.parkingSpot }}</td>
+          <td>{{ presence.arrivalTime | date: 'shortTime' }}</td>
+          <td>{{ presence.departureTime | date: 'shortTime' }}</td>
+          <td>{{ presence.notes }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deletePresence(presence.presenceId)">Delete</button>
+          </td>
+        </tr>
       </tbody>
     </table>
 

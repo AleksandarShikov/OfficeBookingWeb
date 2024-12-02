@@ -51,6 +51,7 @@ namespace OfficeBookingWebAPI
                 options.WithOrigins("http://localhost:4200")
                     .AllowAnyMethod()
                     .AllowAnyHeader());
+            app.UseCors("AllowAll");
             app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseRouting();

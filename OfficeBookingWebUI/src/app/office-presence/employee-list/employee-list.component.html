@@ -1,0 +1,22 @@
+<div class="container">
+  <h2>Employees</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Employee Name</th>
+        <th>Car Brand</th>
+        <th>Car Registration Number</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let employee of employeeCars; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{ employee.fullName }}</td>
+      <td>{{ employee.carBrand }}</td>
+      <td>{{ employee.registerNumber }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
