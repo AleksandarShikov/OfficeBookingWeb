@@ -6,6 +6,7 @@ import { OfficeRoom } from "../../shared/office-room.model";
 import { ParkingReservation } from "../../shared/parking-reservation.model";
 import { ParkingSpot } from "../../shared/parking-spot.model";
 import { OfficePresenceWithReservation } from "../../shared/office-presence-with-reservation.model";
+import { Router } from '@angular/router'
 
 
 
@@ -23,7 +24,7 @@ export class OfficePresenceFormComponent implements OnInit {
   parkingSpots: ParkingSpot[] = []
 
 
-  constructor(private officePresenceService: OfficePresenceService) {
+  constructor(private officePresenceService: OfficePresenceService, private router: Router) {
 
   }
 
@@ -76,6 +77,7 @@ export class OfficePresenceFormComponent implements OnInit {
     this.officePresenceService.createOfficePresence(this.formData).subscribe({
       next: (response) => {
         console.log('Office presence created successfully', response);
+        window.location.reload();
       },
       error: (err) => {
         console.error('Error creating office presence:', err);
